@@ -2,20 +2,31 @@ package com.phoenix.com.phoenix.interview;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
-public class PrimesUi extends JDialog {
+public class PrimesUi extends JDialog implements PrimeCalculatorListener {
     private JPanel contentPane;
-    private JButton buttonOK;
+    private JButton buttonStop;
     private JButton buttonCancel;
+    private JButton buttonStart;
+    private JTextField textField1;
+    private PrimeCalculator calculator;
 
     public PrimesUi() {
+        calculator = new PrimeCalculator(this);
+
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(buttonStop);
 
-        buttonOK.addActionListener(new ActionListener() {
+        buttonStart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                onStart();
+            }
+        });
+        buttonStop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onStop();
             }
         });
 
@@ -42,14 +53,24 @@ public class PrimesUi extends JDialog {
 
     }
 
-    private void onOK() {
-        // add your code here
-        dispose();
+    private void onStart() {
+        calculator.Start();
+    }
+
+    private void onStop() {
+        calculator.Stop();
     }
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
     }
+
+    public void onNewNumber(List<Integer> numbers) {
+        Integer lastPrime = numbers.get(numbers.size() - 1);
+
+        textField1.setText(lastPrime.toString());
+    }
+
 
 }
