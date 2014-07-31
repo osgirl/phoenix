@@ -1,7 +1,7 @@
-#include <string>
+// David Lanouette
+// Coding problem 1.3 for Phoenix Integration
 
-struct Geometry {};
-struct Pilot {};
+#include <string>
 
 class Aircraft
 {
@@ -24,8 +24,4 @@ public:
 	int calculateTravelTime(int distanceTraveledMinutes, int cargoLoadPounds, int fuelLoadGallons);
 	int minimumAirSpeed(int altitudeFeet, double angleOfAttack);
 
-
-private:
-
 };
-

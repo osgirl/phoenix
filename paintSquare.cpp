@@ -1,3 +1,5 @@
+// David Lanouette
+// Coding problem 1.5 for Phoenix Integration
 
 	Geometry* shape;
 	Caret* caret;
