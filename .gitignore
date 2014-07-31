@@ -2,3 +2,5 @@
 *.iml
 out/
 
+/Primes/nbproject/private/
+/Primes/build/
