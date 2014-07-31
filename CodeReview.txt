@@ -1,0 +1,86 @@
+
+
+2.1
+
+this line:
+	numRead = line.length();
+will cause the method to only return the length of the last line that is read.
+
+it should be this:
+	numRead += line.length();
+
+It also doesn't check that the parameter is not null.
+
+
+2.2
+
+This line has an off-by-one error:
+	for (unsigned long idx = 0; idx < data.size(); ++idx)
+
+it should be this:
+	for (unsigned long idx = 0; idx < data.size() - 1; ++idx)
+	
+
+2.3
+
+Because parameters are passed by value in C#, this will modify a local copy of the point object.  The callers version of the struct will not be changed.
+
+
+2.4
+
+I'm not really sure.  Here is my guess.
+
+In this line:
+	assert(loadFile(f->getFullPath()));
+
+f->getFullPath() doesn't return the correct type for loadFile (it wants a const std::wstring&)
+
+
+2.5
+
+There is an off-by-one error.
+
+This line:
+	for (auto idx = wcslen(source) ; idx >= 0 ; --idx)
+	
+will start with the character just past the end of the string.
+
+It should be this:
+	for (auto idx = wcslen(source) -1 ; idx >= 0 ; --idx)
+	
+
+2.6
+
+The code in the foreach loop will create a bunch of XmlElements, but they are never added to the arrayE1 element.
+
+it should be this:
+
+	public static XmlElement doubleArrayToXml(XmlDocument doc, double[] values)
+	{
+	   XmlElement arrayEl = doc.CreateElement(“array”);
+	   arrayEl.SetAttribute(“type”, “double”);
+	   foreach (double d in values)
+	   {
+		  XmlElement valueEl = doc.CreateElement(“value”);
+		  valueEl.InnerText = d.ToString();
+		  arrayEl.AppendChild(valueEl);
+	   }
+	   return arrayEl;
+	}
+
+
+2.7
+
+The line that gets the Structure out of the iterator actually creates a new structure.
+
+This line:
+	Structure* s = new Structure(*it);
+
+probably should be:
+	Structure* s = Structure(*it);
+
+
+2.8
+
+When you pass pInfo to PostMessage, you are passing the actual object, not a copy of it.  Then, in the next line you delete it.  So, if the main thread tries to use that parameter later, it will be invalid.
+
